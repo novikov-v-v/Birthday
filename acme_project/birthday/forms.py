@@ -9,5 +9,8 @@ class BirthdayForm(forms.ModelForm):
         model = Birthday
         fields = '__all__'
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'birthday': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={'type': 'date'}
+            )
         }
