@@ -4,8 +4,8 @@ from django.urls import reverse
 
 from .validators import real_age
 
-
 User = get_user_model()
+
 
 class Birthday(models.Model):
     first_name = models.CharField('Имя', max_length=20)
@@ -33,3 +33,17 @@ class Birthday(models.Model):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+
+class Congratulation(models.Model):
+    text = models.TextField('Текст поздравления')
+    birthday = models.ForeignKey(
+        Birthday,
+        on_delete=models.CASCADE,
+        related_name='congratulations',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('created_at',)
